@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контактна сторінка сайту Альберта Ейнштейна з формами зворотного зв'язку.">
+    <meta name="keywords" content="контакти, форма, зворотний зв'язок">
+    <title>Альберт Ейнштейн - Контакти</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <header>
+        <h1>Альберт Ейнштейн</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Біографія</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Форма зворотного зв'язку</h2>
+            <form action="submit_form.php" method="post">
+                <label for="name">Ім'я:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Повідомлення:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Відправити</button>
+            </form>
+        </section>
+
+        <section class="modal" id="modal-form">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Модальна форма</h3>
+                <form action="submit_modal.php" method="post">
+                    <label for="feedback">Зворотний зв'язок:</label>
+                    <input type="text" id="feedback" name="feedback" required>
+                    <button type="submit">Надіслати</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Якийсь там сайт. Всі права захищено.</p>
+    </footer>
+
+    <script>
+
+        var modal = document.getElementById("modal-form");
+        var btn = document.createElement("button");
+        btn.textContent = "Відкрити модальну форму";
+        btn.onclick = function() { modal.style.display = "block"; };
+        document.body.appendChild(btn);
+
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { modal.style.display = "none"; };
+    </script>
+</body>
+</html>
