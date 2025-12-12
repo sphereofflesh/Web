@@ -1,0 +1,174 @@
+/* === 1. Базові налаштування (Mobile-First) === */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Гнучкі зображення [cite: 299-304] */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Контейнер для обмеження ширини */
+.container {
+    width: 100%;
+    padding: 0 15px; /* Відступи по краях для мобільних */
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* === 2. Flexbox: Шапка та Навігація [cite: 156-159] === */
+.main-header {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    padding: 1rem 0;
+}
+
+/* Flexbox використання №1: Вирівнювання лого і меню */
+.header-content {
+    display: flex;
+    flex-direction: column; /* На мобільному - вертикально */
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Flexbox використання №2: Пункти меню */
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Flex container */
+    flex-wrap: wrap; /* Перенос рядків на дуже малих екранах */
+    gap: 15px;
+    justify-content: center;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.main-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* === 3. CSS Grid: Основний макет [cite: 230-236] === */
+/* На мобільному це просто блок, Grid вмикаємо пізніше або робимо 1 колонку */
+.content-grid {
+    display: grid; /* Grid використання №1 */
+    grid-template-columns: 1fr; /* Одна колонка на мобільному */
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.main-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Сайдбар */
+.sidebar {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+    /* Прибрано float, тепер це частина Grid/Flow */
+}
+
+/* Таблиця */
+.table-responsive {
+    overflow-x: auto; /* Горизонтальний скрол для таблиць на мобільному */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+table th {
+    background-color: #f2f2f2;
+}
+
+/* Футер */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    /* Прибрано position: fixed, бо це погано для мобільних екранів (закриває контент) */
+}
+
+/* =========================================
+   MEDIA QUERIES (Медіа-запити) [cite: 52-57]
+   ========================================= */
+
+/* Breakpoint 1: Планшети (min-width: 600px) [cite: 100] */
+@media (min-width: 600px) {
+    .main-header h1 {
+        font-size: 2rem;
+    }
+    
+    /* Змінюємо напрямок шапки на горизонтальний */
+    .header-content {
+        flex-direction: row; 
+        justify-content: space-between;
+    }
+}
+
+/* Breakpoint 2: Десктопи / Ландшафт планшетів (min-width: 768px) [cite: 101] */
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px; /* Обмежуємо ширину */
+    }
+
+    /* Активуємо двоколоночний Grid */
+    .content-grid {
+        /* Основний контент - 2 частини, Сайдбар - 1 частина */
+        grid-template-columns: 2fr 1fr; 
+        align-items: start; /* Щоб сайдбар не розтягувався на всю висоту */
+    }
+
+    /* Адаптація зображення в тексті */
+    .portrait {
+        float: left; /* Обтікання текстом тільки на великих екранах */
+        margin: 0 20px 10px 0;
+        max-width: 300px;
+    }
+}
+
+/* Breakpoint 3: Великі екрани (min-width: 1024px) [cite: 102] */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1000px;
+    }
+
+    .main-content {
+        padding: 40px; /* Більше простору всередині */
+    }
+
+    .main-header {
+        padding: 1.5rem 0;
+    }
+}
