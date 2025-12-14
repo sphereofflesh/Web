@@ -1,0 +1,338 @@
+:root {
+    /* Змінено основний колір на фіолетовий для Варіанту 11 */
+    --primary: #6c5ce7;      
+    --accent: #f1f2f6;        
+    --border: #dfe6e9;       
+    --text: #2d3436;          
+    --white: #ffffff;
+    --success: #00b894;       
+    --danger: #d63031;       
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* --- ЗАГОЛОВОК --- */
+header {
+    background-color: var(--white);
+    border-bottom: 3px solid var(--primary);
+    padding: 25px 0;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+header h1 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.student-info {
+    color: #636e72;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.variant-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--white);
+    padding: 5px 15px;
+    font-size: 13px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* КОНТЕЙНЕР */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 50px 20px;
+}
+
+/* Картка */
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px; 
+    padding: 40px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+.hidden { display: none; }
+
+/* Анімація появи */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ФОРМИ ТА ІНПУТИ */
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+input[type="text"], select, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box; 
+    background-color: #fdfdfd;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+input.invalid {
+    border-color: var(--danger);
+}
+
+.error-msg {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* КНОПКИ  */
+.primary-btn, .secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.primary-btn:hover {
+    background-color: #5849be; 
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: #b2bec3;
+    color: var(--text);
+    margin-top: 15px;
+}
+
+.secondary-btn:hover {
+    background-color: #dfe6e9;
+}
+
+/* ВИБІР РІВНЯ */
+.level-selector {
+    display: flex;
+    gap: 12px;
+}
+
+.level-btn {
+    flex: 1;
+    padding: 12px;
+    background: var(--white);
+    border: 2px solid var(--border);
+    color: #636e72;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.level-btn:hover {
+    border-color: #b2bec3;
+}
+
+.level-btn.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+/* ПИТАННЯ ТЕСТУ */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--accent);
+}
+
+.badge {
+    background: var(--accent);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.timer {
+    font-weight: 600;
+    color: #636e72;
+}
+
+.question-block {
+    margin-bottom: 35px;
+    animation: fadeIn 0.5s forwards;
+    opacity: 0;
+}
+
+.question-block h3 {
+    font-size: 19px;
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+/* Варіанти відповідей */
+.answer-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.answer-option:hover {
+    background-color: var(--accent);
+    border-color: #b0c4de;
+}
+
+.answer-option input {
+    margin-right: 15px;
+    transform: scale(1.2);
+}
+
+/* DRAG & DROP */
+.dnd-area {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dnd-source, .dnd-target {
+    flex: 1;
+    padding: 20px;
+    background-color: var(--accent);
+    border: 2px dashed var(--border); 
+    border-radius: 8px;
+    min-height: 220px;
+}
+
+.dnd-target {
+    border-color: var(--success); 
+    background-color: #f0fbf4;
+}
+
+.draggable {
+    background: var(--white);
+    border: 1px solid #ccc;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    cursor: grab;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.draggable:active {
+    cursor: grabbing;
+}
+
+.drop-slot {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    padding: 12px;
+    min-height: 50px;
+}
+
+.drop-slot strong {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* РЕЗУЛЬТАТИ */
+.result-content {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.icon-success {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.score-display {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 10px 0 30px 0;
+}
+
+.user-summary {
+    background: var(--accent);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.status-text {
+    font-size: 12px;
+    color: #636e72;
+    margin-top: 5px;
+}
+
+/* Адаптивність */
+@media (max-width: 600px) {
+    .dnd-area {
+        flex-direction: column;
+    }
+    .card {
+        padding: 20px;
+    }
+}
