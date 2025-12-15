@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Варіант 1: Генератор цитат</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .loading { color: #666; font-style: italic; text-align: center; }
+        .error { color: #dc3545; font-weight: bold; text-align: center; border: 1px solid #dc3545; padding: 10px; border-radius: 5px; background: #fff; }
+        
+        .quotes-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card blockquote {
+            margin: 0;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .card blockquote::before {
+            content: "«";
+            font-size: 2em;
+            color: #007bff;
+            vertical-align: sub;
+            margin-right: 5px;
+        }
+
+        .card .author {
+            margin-top: 15px;
+            text-align: right;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        .card .author::before {
+            content: "— ";
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,123,255,0.3);
+            transition: background 0.3s;
+        }
+
+        button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+
+    </style>
+</head>
+<body>
+
+    <h1>Генератор випадкових цитат</h1>
+
+    <div class="controls">
+        <button id="loadBtn">Оновити цитати</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        const loadBtn = document.getElementById('loadBtn');
+        const resultDiv = document.getElementById('result');
+
+        // ВИКОРИСТОВУЄМО БІЛЬШ СТАБІЛЬНИЙ API (DummyJSON)
+        // Замість api.quotable.io, який часто не працює
+        const API_URL = 'https://dummyjson.com/quotes?limit=5';
+
+        async function loadData() {
+            resultDiv.innerHTML = '<p class="loading">Завантаження...</p>';
+            loadBtn.disabled = true;
+
+            try {
+                // 1. Робимо запит
+                const response = await fetch(API_URL);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP помилка! Статус: ${response.status}`);
+                }
+
+                // 2. Отримуємо JSON
+                const data = await response.json();
+                
+                // 3. DummyJSON повертає об'єкт { quotes: [...] }, тому беремо data.quotes
+                renderQuotes(data.quotes);
+
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <p>На жаль, сталася помилка при отриманні даних.</p>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+            } finally {
+                loadBtn.disabled = false;
+            }
+        }
+
+        function renderQuotes(quotesList) {
+            if (!quotesList || quotesList.length === 0) {
+                resultDiv.innerHTML = '<p>Цитат не знайдено.</p>';
+                return;
+            }
+
+            // У DummyJSON поля називаються 'quote' та 'author'
+            const quotesHTML = quotesList.map(item => `
+                <div class="card">
+                    <blockquote>${item.quote}</blockquote>
+                    <div class="author">${item.author}</div>
+                </div>
+            `).join('');
+
+            resultDiv.innerHTML = `<div class="quotes-grid">${quotesHTML}</div>`;
+        }
+
+        loadBtn.addEventListener('click', loadData);
+        loadData();
+    </script>
+</body>
+</html>
